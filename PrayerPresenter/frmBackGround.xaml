@@ -1,0 +1,8 @@
+﻿<Window x:Class="PrayerControl.frmBackGround"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="frmBackGround" Height="96" Width="300" WindowStyle="None"  AllowsTransparency="True"  Loaded="Window_Loaded" MouseDown="Window_MouseDown" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" ShowInTaskbar="False" BorderBrush="#00000000" IsTabStop="False" IsEnabled="False" BorderThickness="0" ResizeMode="NoResize" Background="Red">
+    <Grid>
+        
+    </Grid>
+</Window>

@@ -1,0 +1,6 @@
+﻿<Window x:Class="PrayerControl.frmMedia"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="frmMedia" Height="300" Width="300" WindowState="Normal" Loaded="Window_Loaded" Background="#00000000" WindowStyle="None" AllowsTransparency="True" ShowInTaskbar="False" MouseDown="Window_MouseDown" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave">
+    <MediaElement Grid.ColumnSpan="2" Height="184" HorizontalAlignment="Stretch" Name="MediaElement" Stretch="Fill" VerticalAlignment="Stretch" Volume="1" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaOpened="MediaElement_MediaOpened" />
+</Window>

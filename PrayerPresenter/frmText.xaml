@@ -1,0 +1,8 @@
+﻿<Window x:Class="PrayerControl.frmText"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="frmMatn" Height="96" Width="300" AllowsTransparency="True" xmlns:my="clr-namespace:PrayerControl.LIB" WindowStyle="None" Topmost="False" ShowInTaskbar="False" ResizeMode="NoResize" BorderBrush="#00000000" Loaded="Window_Loaded" MouseDown="Window_MouseDown" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" IsTabStop="False" Background="Black" Closing="Window_Closing">
+    <Canvas Name="mycanvas">
+        <my:MyDockPanel  x:Name="myDockPanel1" IndexChange="myDockPanel1_IndexChange" Background="#00000000" />
+    </Canvas>
+</Window>

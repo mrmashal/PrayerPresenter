@@ -85,6 +85,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.prayerListControl = new PrayerControl.LIB.PrayerListControl();
             this.browser = new PrayerControl.LIB.Browser();
+            this.tbTextTypeTranslate = new System.Windows.Forms.RichTextBox();
             this.gbShow.SuspendLayout();
             this.gbViewType.SuspendLayout();
             this.gbSpeed.SuspendLayout();
@@ -617,10 +618,9 @@
             // 
             // tbTextType
             // 
-            this.tbTextType.Enabled = false;
             this.tbTextType.Location = new System.Drawing.Point(193, 87);
             this.tbTextType.Name = "tbTextType";
-            this.tbTextType.Size = new System.Drawing.Size(487, 66);
+            this.tbTextType.Size = new System.Drawing.Size(487, 26);
             this.tbTextType.TabIndex = 49;
             this.tbTextType.Text = "";
             // 
@@ -648,7 +648,6 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::NaghamateAsemani.Properties.Resources.salavat;
             this.pictureBox1.Location = new System.Drawing.Point(421, 7);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(248, 58);
@@ -694,8 +693,8 @@
             // 
             // prayerListControl
             // 
-            this.prayerListControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.prayerListControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.prayerListControl.Font = new System.Drawing.Font("B Nazanin", 12F);
             this.prayerListControl.HorizontalScrollbar = true;
             this.prayerListControl.Index = -1;
@@ -710,8 +709,8 @@
             // 
             // browser
             // 
-            this.browser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.browser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.browser.BrowserType = PrayerControl.LIB.Browser.BrowserTypes.Image;
             this.browser.FolderIndex = -1;
             this.browser.Location = new System.Drawing.Point(6, 291);
@@ -721,6 +720,14 @@
             this.browser.TabStop = false;
             this.browser.Load += new System.EventHandler(this.browser_Load);
             // 
+            // tbTextTypeTranslate
+            // 
+            this.tbTextTypeTranslate.Location = new System.Drawing.Point(192, 116);
+            this.tbTextTypeTranslate.Name = "tbTextTypeTranslate";
+            this.tbTextTypeTranslate.Size = new System.Drawing.Size(487, 26);
+            this.tbTextTypeTranslate.TabIndex = 50;
+            this.tbTextTypeTranslate.Text = "";
+            // 
             // frmControl
             // 
             this.AcceptButton = this.btnEnter;
@@ -728,6 +735,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1020, 608);
+            this.Controls.Add(this.tbTextTypeTranslate);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbSpeed);
             this.Controls.Add(this.groupBox2);
@@ -842,5 +850,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RichTextBox tbTextTypeTranslate;
     }
 }

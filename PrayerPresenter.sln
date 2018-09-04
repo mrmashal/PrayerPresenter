@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27428.1
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaghmateAsemani", "PrayerPresenter\NaghmateAsemani.csproj", "{028EBF7A-812A-4FEE-A98A-DDDEE2B5F01C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameGrabber", "FrameGrabber\FrameGrabber.csproj", "{751C741A-32DA-4A8B-97FB-7AFA290A6E91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JockerSoft.Media", "JockerSoft.Media\JockerSoft.Media.csproj", "{751C741A-32DA-4A8B-97FB-7AFA290A6E91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

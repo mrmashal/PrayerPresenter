@@ -29,7 +29,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -60,10 +61,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DirectX.Capture">
-      <HintPath>..\PrayerControler___Old\PrayerControler\bin\Debug\DirectX.Capture.dll</HintPath>
+      <HintPath>..\DLL\DirectX.Capture.dll</HintPath>
     </Reference>
     <Reference Include="DShowNET">
-      <HintPath>..\PrayerControler___Old\PrayerControler\bin\Debug\DShowNET.dll</HintPath>
+      <HintPath>..\DLL\DShowNET.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -99,6 +100,11 @@
     </Compile>
     <Compile Include="LIB\MyDockPanel.cs" />
     <Compile Include="LIB\MyLabel.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -198,11 +204,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -233,6 +234,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
@@ -276,9 +278,9 @@
     <None Include="Resources\salavat.gif" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FrameGrabber\FrameGrabber.csproj">
-      <Project>{751C741A-32DA-4A8B-97FB-7AFA290A6E91}</Project>
-      <Name>FrameGrabber</Name>
+    <ProjectReference Include="..\JockerSoft.Media\JockerSoft.Media.csproj">
+      <Project>{751c741a-32da-4a8b-97fb-7afa290a6e91}</Project>
+      <Name>JockerSoft.Media</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

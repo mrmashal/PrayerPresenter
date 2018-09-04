@@ -147,9 +147,9 @@ namespace PrayerControl
                 Global.frmOption.SetDisplay();
 
             }
-
-            catch
+            catch(Exception ex)
             {
+                MessageBox.Show(ex.Message, "خطا");
             }
         }
 
@@ -857,7 +857,6 @@ namespace PrayerControl
                 Global.frmTranslate.Hide();
                 if (this.TextLocation == Locations.Down)
                     Global.frmText.Top = Global.frmOption.ShowDisplay.Bounds.Height - Global.frmText.Height;
-                tbTextType.Enabled = false;
                 IsTyping = false;
             }
             if (rbText_Translate.Checked)
@@ -868,7 +867,6 @@ namespace PrayerControl
                 Global.frmTranslate.Show();
                 if (this.TextLocation == Locations.Down)
                     Global.frmText.Top = Global.frmOption.ShowDisplay.Bounds.Height - Global.frmTranslate.Height - Global.frmText.Height;
-                tbTextType.Enabled = false;
                 IsTyping = false;
             }
 
@@ -876,7 +874,6 @@ namespace PrayerControl
 
             if (rbNone.Checked)
             {
-                tbTextType.Enabled = false;
                 IsTyping = false;
 
                 if (frmTextType != null)
@@ -892,7 +889,6 @@ namespace PrayerControl
             }
             else if (rbTextType.Checked)
             {
-                this.tbTextType.Enabled = true;
                 IsTyping = true;
 
                 if (havedata)
@@ -901,9 +897,9 @@ namespace PrayerControl
                     Global.frmTranslate.Hide();
                     Global.frmTranslate.IsMotion = Global.frmControlText.IsMotion = Global.frmText.IsMotion = false;
                 }
+                this.tbTextType.Focus();
             }
             this.Activate();
-            this.tbTextType.Focus();
             //}
             //catch
             //{
@@ -1016,7 +1012,6 @@ namespace PrayerControl
             frmTextType.Refresh();
 
 
-            tbTextType.Enabled = false;
             frmTextType.OnCompleted += new EventHandler(frm_OnCompleted);
 
             if (this.TextLocation == Locations.Down)

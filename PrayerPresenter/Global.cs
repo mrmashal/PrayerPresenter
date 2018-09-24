@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -8,6 +9,8 @@ namespace PrayerControl
 {
     class Global
     {
+        public static string FilesDb = @"B\Files.xml";
+
         public static frmCamera frmCamera = new frmCamera();
         public static frmImage frmImage = new frmImage();
         public static frmMedia frmMedia = new frmMedia();

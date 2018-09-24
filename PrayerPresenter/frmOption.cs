@@ -197,5 +197,86 @@ namespace PrayerControl
                 gbDisplay.Enabled = true;
             }
         }
+
+        private void btnTextFont_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = fontDialogText.ShowDialog();
+            if (dr != System.Windows.Forms.DialogResult.Cancel)
+            {
+                Global.frmText.TextFont = this.fontDialogText.Font;
+                Global.frmControlText.TextFont = this.fontDialogText.Font;
+                if (Global.frmControl.cmxDataBase.SelectedIndex >= 0)
+                    Global.frmControl.DataBind();
+
+                if (Global.frmControl.frmTextType != null)
+                {
+                    Global.frmText.TextFont = this.fontDialogText.Font;
+                }
+            }
+            Global.frmControl.SetTextLocation();
+
+            //Global.frmControl.btn.Focus();
+        }
+
+        private void btnTranslateFont_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = fontDialogTranslate.ShowDialog();
+            if (dr != System.Windows.Forms.DialogResult.Cancel)
+                Global.frmTranslate.TextFont = this.fontDialogTranslate.Font;
+            Global.frmControl.SetTextLocation();
+            //Global.frmControl.btn.Focus();
+        }
+
+        private void btnBackColor_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = colorDialogBack.ShowDialog();
+            if (dr != System.Windows.Forms.DialogResult.Cancel)
+            {
+                Global.frmText.BackColor = this.colorDialogBack.Color;
+                Global.frmTranslate.BackColor = this.colorDialogBack.Color;
+                Global.frmControlText.BackColor = this.colorDialogBack.Color;
+                if (Global.frmControl.frmTextType != null)
+                    Global.frmControl.frmTextType.BackColor = this.colorDialogBack.Color;
+            }
+            //Global.frmControl.btn.Focus();
+        }
+
+        private void btnTextColor_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = colorDialogText.ShowDialog();
+            if (dr != System.Windows.Forms.DialogResult.Cancel)
+            {
+                Global.frmText.TextColor = this.colorDialogText.Color;
+                Global.frmControlText.TextColor = this.colorDialogText.Color;
+                if (Global.frmControl.frmTextType != null)
+                    Global.frmControl.frmTextType.TextColor = this.colorDialogText.Color;
+            }
+            //Global.frmControl.btn.Focus();
+        }
+
+        private void btnTranslateColor_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = colorDialogTranslate.ShowDialog();
+            if (dr != System.Windows.Forms.DialogResult.Cancel)
+            {
+                Global.frmTranslate.TextColor = this.colorDialogTranslate.Color;
+            }
+            //Global.frmControl.btn.Focus();
+        }
+
+        private void chbIsTransparent_CheckedChanged(object sender, EventArgs e)
+        {
+
+            Global.frmTranslate.IsTransparent = Global.frmText.IsTransparent = chbIsTransparent.Checked;
+            if (Global.frmControl.frmTextType != null)
+            {
+                Global.frmControl.frmTextType.IsTransparent = chbIsTransparent.Checked;
+            }
+            btnBackColor.Enabled = !chbIsTransparent.Checked;
+            Global.frmControl.SetfrmSize();
+            //Global.frmControl.btn.Focus();
+        }
+
+
     }
 }

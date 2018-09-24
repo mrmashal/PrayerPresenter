@@ -59,21 +59,9 @@
             this.rbTopDown = new System.Windows.Forms.RadioButton();
             this.rbDown = new System.Windows.Forms.RadioButton();
             this.rbTop = new System.Windows.Forms.RadioButton();
-            this.gbText = new System.Windows.Forms.GroupBox();
-            this.btnTextFont = new System.Windows.Forms.Button();
-            this.btnTextColor = new System.Windows.Forms.Button();
-            this.gbTranslate = new System.Windows.Forms.GroupBox();
-            this.btnTranslateFont = new System.Windows.Forms.Button();
-            this.btnTranslateColor = new System.Windows.Forms.Button();
-            this.gbBackColor = new System.Windows.Forms.GroupBox();
-            this.btnBackColor = new System.Windows.Forms.Button();
-            this.chbIsTransparent = new System.Windows.Forms.CheckBox();
-            this.fontDialogText = new System.Windows.Forms.FontDialog();
-            this.fontDialogTranslate = new System.Windows.Forms.FontDialog();
-            this.colorDialogText = new System.Windows.Forms.ColorDialog();
-            this.colorDialogTranslate = new System.Windows.Forms.ColorDialog();
-            this.colorDialogBack = new System.Windows.Forms.ColorDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cmxVerse = new System.Windows.Forms.ComboBox();
             this.cmxDataBase = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbTextType = new System.Windows.Forms.RichTextBox();
@@ -92,9 +80,6 @@
             this.gbMedia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbMedia)).BeginInit();
             this.gbLocation.SuspendLayout();
-            this.gbText.SuspendLayout();
-            this.gbTranslate.SuspendLayout();
-            this.gbBackColor.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -399,7 +384,7 @@
             this.btnOption.Size = new System.Drawing.Size(71, 41);
             this.btnOption.TabIndex = 22;
             this.btnOption.TabStop = false;
-            this.btnOption.Text = "پشرفته... (ctrl+O)";
+            this.btnOption.Text = "تنظیمات... (ctrl+O)";
             this.btnOption.UseVisualStyleBackColor = true;
             this.btnOption.Click += new System.EventHandler(this.btnOption_Click);
             // 
@@ -462,145 +447,41 @@
             this.rbTop.UseVisualStyleBackColor = true;
             this.rbTop.CheckedChanged += new System.EventHandler(this.rbLocation_CheckedChanged);
             // 
-            // gbText
-            // 
-            this.gbText.Controls.Add(this.btnTextFont);
-            this.gbText.Controls.Add(this.btnTextColor);
-            this.gbText.Location = new System.Drawing.Point(387, -2);
-            this.gbText.Name = "gbText";
-            this.gbText.Size = new System.Drawing.Size(146, 48);
-            this.gbText.TabIndex = 40;
-            this.gbText.TabStop = false;
-            this.gbText.Text = "متن اصلی";
-            // 
-            // btnTextFont
-            // 
-            this.btnTextFont.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnTextFont.Location = new System.Drawing.Point(77, 16);
-            this.btnTextFont.Name = "btnTextFont";
-            this.btnTextFont.Size = new System.Drawing.Size(65, 25);
-            this.btnTextFont.TabIndex = 31;
-            this.btnTextFont.TabStop = false;
-            this.btnTextFont.Text = "فونت...";
-            this.btnTextFont.UseVisualStyleBackColor = true;
-            this.btnTextFont.Click += new System.EventHandler(this.btnTextFont_Click);
-            // 
-            // btnTextColor
-            // 
-            this.btnTextColor.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnTextColor.Location = new System.Drawing.Point(5, 16);
-            this.btnTextColor.Name = "btnTextColor";
-            this.btnTextColor.Size = new System.Drawing.Size(66, 25);
-            this.btnTextColor.TabIndex = 41;
-            this.btnTextColor.TabStop = false;
-            this.btnTextColor.Text = "رنگ متن...";
-            this.btnTextColor.UseVisualStyleBackColor = true;
-            this.btnTextColor.Click += new System.EventHandler(this.btnTextColor_Click);
-            // 
-            // gbTranslate
-            // 
-            this.gbTranslate.Controls.Add(this.btnTranslateFont);
-            this.gbTranslate.Controls.Add(this.btnTranslateColor);
-            this.gbTranslate.Location = new System.Drawing.Point(238, -2);
-            this.gbTranslate.Name = "gbTranslate";
-            this.gbTranslate.Size = new System.Drawing.Size(146, 48);
-            this.gbTranslate.TabIndex = 43;
-            this.gbTranslate.TabStop = false;
-            this.gbTranslate.Text = "ترجمه";
-            // 
-            // btnTranslateFont
-            // 
-            this.btnTranslateFont.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnTranslateFont.Location = new System.Drawing.Point(75, 16);
-            this.btnTranslateFont.Name = "btnTranslateFont";
-            this.btnTranslateFont.Size = new System.Drawing.Size(66, 25);
-            this.btnTranslateFont.TabIndex = 32;
-            this.btnTranslateFont.TabStop = false;
-            this.btnTranslateFont.Text = "فونت...";
-            this.btnTranslateFont.UseVisualStyleBackColor = true;
-            this.btnTranslateFont.Click += new System.EventHandler(this.btnTranslateFont_Click);
-            // 
-            // btnTranslateColor
-            // 
-            this.btnTranslateColor.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnTranslateColor.Location = new System.Drawing.Point(4, 16);
-            this.btnTranslateColor.Name = "btnTranslateColor";
-            this.btnTranslateColor.Size = new System.Drawing.Size(66, 25);
-            this.btnTranslateColor.TabIndex = 42;
-            this.btnTranslateColor.TabStop = false;
-            this.btnTranslateColor.Text = "رنگ متن...";
-            this.btnTranslateColor.UseVisualStyleBackColor = true;
-            this.btnTranslateColor.Click += new System.EventHandler(this.btnTranslateColor_Click);
-            // 
-            // gbBackColor
-            // 
-            this.gbBackColor.Controls.Add(this.btnBackColor);
-            this.gbBackColor.Controls.Add(this.chbIsTransparent);
-            this.gbBackColor.Location = new System.Drawing.Point(82, -2);
-            this.gbBackColor.Name = "gbBackColor";
-            this.gbBackColor.Size = new System.Drawing.Size(152, 48);
-            this.gbBackColor.TabIndex = 44;
-            this.gbBackColor.TabStop = false;
-            this.gbBackColor.Text = "رنگ زمینه متن";
-            // 
-            // btnBackColor
-            // 
-            this.btnBackColor.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnBackColor.Location = new System.Drawing.Point(82, 16);
-            this.btnBackColor.Name = "btnBackColor";
-            this.btnBackColor.Size = new System.Drawing.Size(67, 25);
-            this.btnBackColor.TabIndex = 40;
-            this.btnBackColor.TabStop = false;
-            this.btnBackColor.Text = "انتخاب ...";
-            this.btnBackColor.UseVisualStyleBackColor = true;
-            this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
-            // 
-            // chbIsTransparent
-            // 
-            this.chbIsTransparent.AutoSize = true;
-            this.chbIsTransparent.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbIsTransparent.Location = new System.Drawing.Point(6, 20);
-            this.chbIsTransparent.Name = "chbIsTransparent";
-            this.chbIsTransparent.Size = new System.Drawing.Size(76, 17);
-            this.chbIsTransparent.TabIndex = 43;
-            this.chbIsTransparent.TabStop = false;
-            this.chbIsTransparent.Text = "شفاف (P) ";
-            this.chbIsTransparent.UseVisualStyleBackColor = true;
-            this.chbIsTransparent.CheckedChanged += new System.EventHandler(this.chbIsTransparent_CheckedChanged);
-            // 
-            // fontDialogText
-            // 
-            this.fontDialogText.Color = System.Drawing.SystemColors.ControlText;
-            this.fontDialogText.Font = new System.Drawing.Font("B Nazanin", 50F, System.Drawing.FontStyle.Bold);
-            // 
-            // fontDialogTranslate
-            // 
-            this.fontDialogTranslate.Color = System.Drawing.SystemColors.ControlText;
-            this.fontDialogTranslate.Font = new System.Drawing.Font("B Nazanin", 23F, System.Drawing.FontStyle.Bold);
-            // 
-            // colorDialogText
-            // 
-            this.colorDialogText.Color = System.Drawing.Color.White;
-            // 
-            // colorDialogTranslate
-            // 
-            this.colorDialogTranslate.Color = System.Drawing.Color.White;
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.cmxVerse);
             this.groupBox2.Controls.Add(this.cmxDataBase);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(537, -2);
+            this.groupBox2.Location = new System.Drawing.Point(405, -2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(143, 48);
+            this.groupBox2.Size = new System.Drawing.Size(275, 48);
             this.groupBox2.TabIndex = 45;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "محتوا";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(84, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.TabIndex = 38;
+            this.label6.Text = "آیه/فراز:";
+            // 
+            // cmxVerse
+            // 
+            this.cmxVerse.FormattingEnabled = true;
+            this.cmxVerse.Location = new System.Drawing.Point(6, 17);
+            this.cmxVerse.Name = "cmxVerse";
+            this.cmxVerse.Size = new System.Drawing.Size(79, 21);
+            this.cmxVerse.TabIndex = 37;
+            this.cmxVerse.TabStop = false;
+            // 
             // cmxDataBase
             // 
             this.cmxDataBase.FormattingEnabled = true;
-            this.cmxDataBase.Location = new System.Drawing.Point(6, 16);
+            this.cmxDataBase.Location = new System.Drawing.Point(137, 17);
             this.cmxDataBase.Name = "cmxDataBase";
             this.cmxDataBase.Size = new System.Drawing.Size(101, 21);
             this.cmxDataBase.TabIndex = 29;
@@ -610,7 +491,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(112, 19);
+            this.label3.Location = new System.Drawing.Point(238, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 36;
@@ -623,6 +504,7 @@
             this.tbTextType.Size = new System.Drawing.Size(487, 26);
             this.tbTextType.TabIndex = 49;
             this.tbTextType.Text = "";
+            this.tbTextType.TextChanged += new System.EventHandler(this.tbTextType_TextChanged);
             // 
             // label2
             // 
@@ -727,6 +609,7 @@
             this.tbTextTypeTranslate.Size = new System.Drawing.Size(487, 26);
             this.tbTextTypeTranslate.TabIndex = 50;
             this.tbTextTypeTranslate.Text = "";
+            this.tbTextTypeTranslate.TextChanged += new System.EventHandler(this.tbTextType_TextChanged);
             // 
             // frmControl
             // 
@@ -739,10 +622,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbSpeed);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.gbBackColor);
-            this.Controls.Add(this.gbTranslate);
             this.Controls.Add(this.btnOption);
-            this.Controls.Add(this.gbText);
             this.Controls.Add(this.gbLocation);
             this.Controls.Add(this.btn);
             this.Controls.Add(this.btnEnter);
@@ -779,10 +659,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbMedia)).EndInit();
             this.gbLocation.ResumeLayout(false);
             this.gbLocation.PerformLayout();
-            this.gbText.ResumeLayout(false);
-            this.gbTranslate.ResumeLayout(false);
-            this.gbBackColor.ResumeLayout(false);
-            this.gbBackColor.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -794,62 +670,50 @@
 
         #endregion
 
-        private LIB.Browser browser;
-        private System.Windows.Forms.RadioButton rbBlank;
-        private System.Windows.Forms.RadioButton rbCamera_Media;
-        private System.Windows.Forms.RadioButton rbCamera_Image;
-        private System.Windows.Forms.RadioButton rbCamera;
-        private System.Windows.Forms.RadioButton rbMedia;
-        private System.Windows.Forms.RadioButton rbImage;
+        public LIB.Browser browser;
+        public System.Windows.Forms.RadioButton rbBlank;
+        public System.Windows.Forms.RadioButton rbCamera_Media;
+        public System.Windows.Forms.RadioButton rbCamera_Image;
+        public System.Windows.Forms.RadioButton rbCamera;
+        public System.Windows.Forms.RadioButton rbMedia;
+        public System.Windows.Forms.RadioButton rbImage;
         public LIB.PrayerListControl prayerListControl;
-        private System.Windows.Forms.RadioButton rbText_Translate;
-        private System.Windows.Forms.RadioButton rbTextType;
-        private System.Windows.Forms.RadioButton rbNone;
-        private System.Windows.Forms.GroupBox gbViewType;
-        private System.Windows.Forms.Button btnStopPrayer;
-        private System.Windows.Forms.Button btnReduseSpeed;
-        private System.Windows.Forms.Button btnIncreseSpeed;
-        private System.Windows.Forms.GroupBox gbMedia;
-        private System.Windows.Forms.Button btnBackwardMedia;
-        private System.Windows.Forms.Button btnStopMedeia;
-        private System.Windows.Forms.Button btnForwardMedia;
-        private System.Windows.Forms.Button btnEnter;
+        public System.Windows.Forms.RadioButton rbText_Translate;
+        public System.Windows.Forms.RadioButton rbTextType;
+        public System.Windows.Forms.RadioButton rbNone;
+        public System.Windows.Forms.GroupBox gbViewType;
+        public System.Windows.Forms.Button btnStopPrayer;
+        public System.Windows.Forms.Button btnReduseSpeed;
+        public System.Windows.Forms.Button btnIncreseSpeed;
+        public System.Windows.Forms.GroupBox gbMedia;
+        public System.Windows.Forms.Button btnBackwardMedia;
+        public System.Windows.Forms.Button btnStopMedeia;
+        public System.Windows.Forms.Button btnForwardMedia;
+        public System.Windows.Forms.Button btnEnter;
         public System.Windows.Forms.GroupBox gbShow;
         public System.Windows.Forms.GroupBox gbSpeed;
-        private System.Windows.Forms.Button btnOption;
+        public System.Windows.Forms.Button btnOption;
         public System.Windows.Forms.RadioButton rbText;
-        private System.Windows.Forms.Button btn;
-        private System.Windows.Forms.RadioButton rbTopDown;
-        private System.Windows.Forms.RadioButton rbDown;
-        private System.Windows.Forms.RadioButton rbTop;
+        public System.Windows.Forms.Button btn;
+        public System.Windows.Forms.RadioButton rbTopDown;
+        public System.Windows.Forms.RadioButton rbDown;
+        public System.Windows.Forms.RadioButton rbTop;
         public System.Windows.Forms.GroupBox gbLocation;
-        private System.Windows.Forms.Button btnTextFont;
-        private System.Windows.Forms.Button btnTextColor;
-        private System.Windows.Forms.Button btnTranslateFont;
-        private System.Windows.Forms.Button btnTranslateColor;
-        private System.Windows.Forms.Button btnBackColor;
-        public System.Windows.Forms.CheckBox chbIsTransparent;
-        public System.Windows.Forms.GroupBox gbText;
-        public System.Windows.Forms.GroupBox gbTranslate;
-        public System.Windows.Forms.GroupBox gbBackColor;
-        public System.Windows.Forms.FontDialog fontDialogText;
-        private System.Windows.Forms.FontDialog fontDialogTranslate;
-        public System.Windows.Forms.ColorDialog colorDialogText;
-        private System.Windows.Forms.ColorDialog colorDialogTranslate;
-        public System.Windows.Forms.ColorDialog colorDialogBack;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ComboBox cmxDataBase;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TrackBar tbMedia;
-        private System.Windows.Forms.Label lbMediaPosition;
-        private System.Windows.Forms.Label lbMediaDuration;
-        private System.Windows.Forms.RichTextBox tbTextType;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox tbTextTypeTranslate;
+        public System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.ComboBox cmxDataBase;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TrackBar tbMedia;
+        public System.Windows.Forms.Label lbMediaPosition;
+        public System.Windows.Forms.Label lbMediaDuration;
+        public System.Windows.Forms.RichTextBox tbTextType;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.RichTextBox tbTextTypeTranslate;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.ComboBox cmxVerse;
     }
 }

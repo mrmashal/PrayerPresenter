@@ -24,7 +24,7 @@ namespace PrayerControl
             cmxDataBase.Items.Clear();
 
             DataSet ds = new DataSet();
-            ds.ReadXml(@"B\Files.xml");
+            ds.ReadXml(Global.FilesDb);
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
@@ -39,10 +39,13 @@ namespace PrayerControl
 
         bool havedata = false;
 
+        List<string> TextList = new List<string>();
+        List<string> TranslationList = new List<string>();
+
         public void DataBind()
         {
             DataSet ds = new DataSet();
-            ds.ReadXml(@"B\Files.xml");
+            ds.ReadXml(Global.FilesDb);
             string Filename = ds.Tables[0].Rows[this.cmxDataBase.SelectedIndex][1].ToString();
             string ConnectinString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=B\" + Filename;
             try
@@ -87,6 +90,8 @@ namespace PrayerControl
 
                 bool isGoran = cmxDataBase.SelectedItem.ToString().Contains("سوره");
 
+                TextList.Clear();
+                TranslationList.Clear();
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     //اگر سوره قرآن است باید آخر هر کدام شماره آیه هم اضافه شود
@@ -98,6 +103,8 @@ namespace PrayerControl
                             double d = Global.frmText.AddItem("      " + dt.Rows[i][1].ToString(), i);
                             Global.frmControlText.AddItem("      " + dt.Rows[i][1].ToString(), i);
                             Global.frmTranslate.AddItem("      " + dt.Rows[i][2].ToString(), i, d);
+                            TextList.Add("      " + dt.Rows[i][1].ToString());
+                            TranslationList.Add("      " + dt.Rows[i][2].ToString());
                         }
                         else
                         {
@@ -105,6 +112,8 @@ namespace PrayerControl
                             double d = Global.frmText.AddItem("           " + dt.Rows[i][1].ToString() + " ( " + i.ToString() + " ) ", i);
                             Global.frmControlText.AddItem("           " + dt.Rows[i][1].ToString() + " ( " + i.ToString() + " ) ", i);
                             Global.frmTranslate.AddItem("           " + dt.Rows[i][2].ToString() + " ( " + i.ToString() + " ) ", i, d);
+                            TextList.Add("      " + dt.Rows[i][1].ToString() + " ( " + i.ToString() + " ) ");
+                            TranslationList.Add("      " + dt.Rows[i][2].ToString() + " ( " + i.ToString() + " ) ");
                         }
                     }
                     else
@@ -117,6 +126,8 @@ namespace PrayerControl
                         double d = Global.frmText.AddItem(dt.Rows[i][1].ToString(), i);
                         Global.frmControlText.AddItem(dt.Rows[i][1].ToString(), i);
                         Global.frmTranslate.AddItem(dt.Rows[i][2].ToString(), i, d);
+                        TextList.Add("      " + dt.Rows[i][1].ToString());
+                        TranslationList.Add("      " + dt.Rows[i][2].ToString());
                     }
                 }
 
@@ -191,117 +202,38 @@ namespace PrayerControl
         {
             if (Global.frmText != null)
             {
-                Global.frmText.TextFont = fontDialogText.Font;
-                Global.frmText.TextColor = colorDialogText.Color;
-                Global.frmText.BackColor = colorDialogBack.Color;
-                Global.frmText.IsTransparent = chbIsTransparent.Checked;
+                Global.frmText.TextFont = Global.frmOption.fontDialogText.Font;
+                Global.frmText.TextColor = Global.frmOption.colorDialogText.Color;
+                Global.frmText.BackColor = Global.frmOption.colorDialogBack.Color;
+                Global.frmText.IsTransparent = Global.frmOption.chbIsTransparent.Checked;
             }
 
             if (Global.frmControlText != null)
             {
-                Global.frmControlText.TextFont = fontDialogText.Font;
-                Global.frmControlText.TextColor = colorDialogText.Color;
-                Global.frmControlText.BackColor = colorDialogBack.Color;
+                Global.frmControlText.TextFont = Global.frmOption.fontDialogText.Font;
+                Global.frmControlText.TextColor = Global.frmOption.colorDialogText.Color;
+                Global.frmControlText.BackColor = Global.frmOption.colorDialogBack.Color;
 
             }
 
             if (Global.frmTranslate != null)
             {
-                Global.frmTranslate.TextFont = fontDialogTranslate.Font;
-                Global.frmTranslate.TextColor = colorDialogTranslate.Color;
-                Global.frmTranslate.IsTransparent = chbIsTransparent.Checked;
-                Global.frmTranslate.BackColor = colorDialogBack.Color;
+                Global.frmTranslate.TextFont = Global.frmOption.fontDialogTranslate.Font;
+                Global.frmTranslate.TextColor = Global.frmOption.colorDialogTranslate.Color;
+                Global.frmTranslate.IsTransparent = Global.frmOption.chbIsTransparent.Checked;
+                Global.frmTranslate.BackColor = Global.frmOption.colorDialogBack.Color;
             }
 
             if (this.frmTextType != null)
             {
-                this.frmTextType.TextFont = fontDialogText.Font;
-                this.frmTextType.TextColor = colorDialogText.Color;
-                this.frmTextType.BackColor = colorDialogBack.Color;
-                this.frmTextType.IsTransparent = chbIsTransparent.Checked;
+                this.frmTextType.TextFont = Global.frmOption.fontDialogText.Font;
+                this.frmTextType.TextColor = Global.frmOption.colorDialogText.Color;
+                this.frmTextType.BackColor = Global.frmOption.colorDialogBack.Color;
+                this.frmTextType.IsTransparent = Global.frmOption.chbIsTransparent.Checked;
             }
         }
 
 
-
-        private void btnTextFont_Click(object sender, EventArgs e)
-        {
-            DialogResult dr = fontDialogText.ShowDialog();
-            if (dr != System.Windows.Forms.DialogResult.Cancel)
-            {
-                Global.frmText.TextFont = this.fontDialogText.Font;
-                Global.frmControlText.TextFont = this.fontDialogText.Font;
-                if (cmxDataBase.SelectedIndex >= 0)
-                    this.DataBind();
-
-                if (this.frmTextType != null)
-                {
-                    Global.frmText.TextFont = this.fontDialogText.Font;
-                }
-            }
-            this.SetTextLocation();
-
-            btn.Focus();
-        }
-
-        private void btnTranslateFont_Click(object sender, EventArgs e)
-        {
-            DialogResult dr = fontDialogTranslate.ShowDialog();
-            if (dr != System.Windows.Forms.DialogResult.Cancel)
-                Global.frmTranslate.TextFont = this.fontDialogTranslate.Font;
-            this.SetTextLocation();
-            btn.Focus();
-        }
-
-        private void btnBackColor_Click(object sender, EventArgs e)
-        {
-            DialogResult dr = colorDialogBack.ShowDialog();
-            if (dr != System.Windows.Forms.DialogResult.Cancel)
-            {
-                Global.frmText.BackColor = this.colorDialogBack.Color;
-                Global.frmTranslate.BackColor = this.colorDialogBack.Color;
-                Global.frmControlText.BackColor = this.colorDialogBack.Color;
-                if (this.frmTextType != null)
-                    this.frmTextType.BackColor = this.colorDialogBack.Color;
-            }
-            btn.Focus();
-        }
-
-        private void btnTextColor_Click(object sender, EventArgs e)
-        {
-            DialogResult dr = colorDialogText.ShowDialog();
-            if (dr != System.Windows.Forms.DialogResult.Cancel)
-            {
-                Global.frmText.TextColor = this.colorDialogText.Color;
-                Global.frmControlText.TextColor = this.colorDialogText.Color;
-                if (this.frmTextType != null)
-                    this.frmTextType.TextColor = this.colorDialogText.Color;
-            }
-            btn.Focus();
-        }
-
-        private void btnTranslateColor_Click(object sender, EventArgs e)
-        {
-            DialogResult dr = colorDialogTranslate.ShowDialog();
-            if (dr != System.Windows.Forms.DialogResult.Cancel)
-            {
-                Global.frmTranslate.TextColor = this.colorDialogTranslate.Color;
-            }
-            btn.Focus();
-        }
-
-        private void chbIsTransparent_CheckedChanged(object sender, EventArgs e)
-        {
-
-            Global.frmTranslate.IsTransparent = Global.frmText.IsTransparent = chbIsTransparent.Checked;
-            if (frmTextType != null)
-            {
-                this.frmTextType.IsTransparent = chbIsTransparent.Checked;
-            }
-            btnBackColor.Enabled = !chbIsTransparent.Checked;
-            SetfrmSize();
-            btn.Focus();
-        }
 
         #endregion
 
@@ -704,6 +636,13 @@ namespace PrayerControl
             Global.frmText.ActiveIndex = prayerListControl.Index;
             Global.frmControlText.ActiveIndex = prayerListControl.Index;
             Global.frmTranslate.ActiveIndex = prayerListControl.Index;
+
+            try
+            {
+                tbTextType.Text = TextList[prayerListControl.Index];
+                tbTextTypeTranslate.Text = TranslationList[prayerListControl.Index];
+            }
+            catch { }
         }
 
         int tempNumber = 0;
@@ -802,7 +741,7 @@ namespace PrayerControl
                     rbTop.Checked = true;
                     return;
                 case Keys.P:
-                    chbIsTransparent.Checked = !chbIsTransparent.Checked;
+                    Global.frmOption.chbIsTransparent.Checked = !Global.frmOption.chbIsTransparent.Checked;
                     return;
             }
 
@@ -836,7 +775,6 @@ namespace PrayerControl
                 browser.Visible = true;
             }
         }
-        bool IsTyping = false;
         private void rbText_CheckedChanged(object sender, EventArgs e)
         {
             //try
@@ -857,7 +795,6 @@ namespace PrayerControl
                 Global.frmTranslate.Hide();
                 if (this.TextLocation == Locations.Down)
                     Global.frmText.Top = Global.frmOption.ShowDisplay.Bounds.Height - Global.frmText.Height;
-                IsTyping = false;
             }
             if (rbText_Translate.Checked)
             {
@@ -867,15 +804,12 @@ namespace PrayerControl
                 Global.frmTranslate.Show();
                 if (this.TextLocation == Locations.Down)
                     Global.frmText.Top = Global.frmOption.ShowDisplay.Bounds.Height - Global.frmTranslate.Height - Global.frmText.Height;
-                IsTyping = false;
             }
 
             SetfrmSize();
 
             if (rbNone.Checked)
             {
-                IsTyping = false;
-
                 if (frmTextType != null)
                     frm_OnCompleted(null, null);
                 if (havedata)
@@ -889,8 +823,6 @@ namespace PrayerControl
             }
             else if (rbTextType.Checked)
             {
-                IsTyping = true;
-
                 if (havedata)
                 {
                     Global.frmText.Hide();
@@ -911,7 +843,7 @@ namespace PrayerControl
         public void SetfrmSize()
         {
             ///تنظیم اندازه عکس
-            if (rbNone.Checked || rbTextType.Checked || chbIsTransparent.Checked)
+            if (rbNone.Checked || rbTextType.Checked || Global.frmOption.chbIsTransparent.Checked)
             {
                 ///
                 Global.frmImage.SetScreen(Global.frmOption.ShowDisplay, 0);
@@ -984,10 +916,9 @@ namespace PrayerControl
         }
 
         #region Type
-        frmText frmTextType;
+        public frmText frmTextType;
         private void SendTextType()
         {
-            IsTyping = false;
             if (frmTextType != null)
             {
                 frmTextType.Close();
@@ -1002,10 +933,10 @@ namespace PrayerControl
             frmTextType.Show();
             frmTextType.Refresh();
 
-            frmTextType.TextFont = this.fontDialogText.Font;
-            frmTextType.TextColor = this.colorDialogText.Color;
-            frmTextType.BackColor = this.colorDialogBack.Color;
-            frmTextType.IsTransparent = chbIsTransparent.Checked;
+            frmTextType.TextFont = Global.frmOption.fontDialogText.Font;
+            frmTextType.TextColor = Global.frmOption.colorDialogText.Color;
+            frmTextType.BackColor = Global.frmOption.colorDialogBack.Color;
+            frmTextType.IsTransparent = Global.frmOption.chbIsTransparent.Checked;
 
             frmTextType.AddItem(tbTextType.Text, 0);
 
@@ -1236,11 +1167,6 @@ namespace PrayerControl
         {
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void frmControl_SizeChanged(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
@@ -1251,9 +1177,9 @@ namespace PrayerControl
 
         private void frmControl_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dr = MessageBox.Show("آیا برای خروج از برنامه مطمئن هستید؟" , "" , MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-            if (dr == DialogResult.No)
-                e.Cancel = true;
+            //DialogResult dr = MessageBox.Show("آیا برای خروج از برنامه مطمئن هستید؟" , "" , MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            //if (dr == DialogResult.No)
+            //    e.Cancel = true;
         }
 
         private void frmControl_LocationChanged(object sender, EventArgs e)

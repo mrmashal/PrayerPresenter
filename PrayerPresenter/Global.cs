@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AhoCorasick;
+using NaghamateAsemani;
 
 namespace PrayerControl
 {
     class Global
     {
         public static string FilesDb = @"B\Files.xml";
+        public static int SearchMinLength = 3;
+        public static int SearchMaxLength = 20;
 
         public static frmCamera frmCamera = new frmCamera();
         public static frmImage frmImage = new frmImage();
@@ -22,6 +25,9 @@ namespace PrayerControl
         public static frmControl frmControl = new frmControl();
         public static frmText frmBackGround = new frmText();
         public static frmOption frmOption = new frmOption();
+        public static frmSearch frmSearch = new frmSearch();
+
+        public static AhoCorasick.Trie<Location> SearchTrie = new Trie<Location>();
 
         public static void ShowForms()
         {

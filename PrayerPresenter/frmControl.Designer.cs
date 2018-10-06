@@ -71,9 +71,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.tbTextTypeTranslate = new System.Windows.Forms.RichTextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.prayerListControl = new PrayerControl.LIB.PrayerListControl();
             this.browser = new PrayerControl.LIB.Browser();
-            this.tbTextTypeTranslate = new System.Windows.Forms.RichTextBox();
             this.gbShow.SuspendLayout();
             this.gbViewType.SuspendLayout();
             this.gbSpeed.SuspendLayout();
@@ -471,15 +472,19 @@
             // 
             // cmxVerse
             // 
+            this.cmxVerse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmxVerse.FormattingEnabled = true;
             this.cmxVerse.Location = new System.Drawing.Point(6, 17);
             this.cmxVerse.Name = "cmxVerse";
             this.cmxVerse.Size = new System.Drawing.Size(79, 21);
             this.cmxVerse.TabIndex = 37;
             this.cmxVerse.TabStop = false;
+            this.cmxVerse.SelectedIndexChanged += new System.EventHandler(this.cmxVerse_SelectedIndexChanged);
             // 
             // cmxDataBase
             // 
+            this.cmxDataBase.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmxDataBase.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmxDataBase.FormattingEnabled = true;
             this.cmxDataBase.Location = new System.Drawing.Point(137, 17);
             this.cmxDataBase.Name = "cmxDataBase";
@@ -573,6 +578,27 @@
             this.label1.TabIndex = 54;
             this.label1.Text = "حمیدرضا رضایی (Hrremail@gmail.com) -";
             // 
+            // tbTextTypeTranslate
+            // 
+            this.tbTextTypeTranslate.Location = new System.Drawing.Point(192, 116);
+            this.tbTextTypeTranslate.Name = "tbTextTypeTranslate";
+            this.tbTextTypeTranslate.Size = new System.Drawing.Size(487, 26);
+            this.tbTextTypeTranslate.TabIndex = 50;
+            this.tbTextTypeTranslate.Text = "";
+            this.tbTextTypeTranslate.TextChanged += new System.EventHandler(this.tbTextType_TextChanged);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Enabled = false;
+            this.btnSearch.Location = new System.Drawing.Point(293, 4);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(109, 41);
+            this.btnSearch.TabIndex = 51;
+            this.btnSearch.TabStop = false;
+            this.btnSearch.Text = "در حال آماده‌سازی جستجو...";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // prayerListControl
             // 
             this.prayerListControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -602,15 +628,6 @@
             this.browser.TabStop = false;
             this.browser.Load += new System.EventHandler(this.browser_Load);
             // 
-            // tbTextTypeTranslate
-            // 
-            this.tbTextTypeTranslate.Location = new System.Drawing.Point(192, 116);
-            this.tbTextTypeTranslate.Name = "tbTextTypeTranslate";
-            this.tbTextTypeTranslate.Size = new System.Drawing.Size(487, 26);
-            this.tbTextTypeTranslate.TabIndex = 50;
-            this.tbTextTypeTranslate.Text = "";
-            this.tbTextTypeTranslate.TextChanged += new System.EventHandler(this.tbTextType_TextChanged);
-            // 
             // frmControl
             // 
             this.AcceptButton = this.btnEnter;
@@ -618,6 +635,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1020, 608);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.tbTextTypeTranslate);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbSpeed);
@@ -715,5 +733,6 @@
         public System.Windows.Forms.RichTextBox tbTextTypeTranslate;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.ComboBox cmxVerse;
+        public System.Windows.Forms.Button btnSearch;
     }
 }

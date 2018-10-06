@@ -11,11 +11,13 @@ using DShowNET;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Data.OleDb;
+using NaghamateAsemani;
 
 namespace PrayerControl
 {
     public partial class frmControl : Form
     {
+        private BackgroundWorker _bw;
 
         #region DataBase
 
@@ -35,6 +37,7 @@ namespace PrayerControl
         void frmMatn_IndexChange(object sender, EventArgs e)
         {
             this.prayerListControl.Index = Global.frmText.ActiveIndex;
+            VerseUpdated();
         }
 
         bool havedata = false;
@@ -92,28 +95,35 @@ namespace PrayerControl
 
                 TextList.Clear();
                 TranslationList.Clear();
+
+                cmxVerse.Items.Clear();
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
+                    cmxVerse.Items.Add((i + 1).ToString());
+
+                    var text = dt.Rows[i][1].ToString();
+                    var translation = dt.Rows[i][2].ToString();
+
                     //اگر سوره قرآن است باید آخر هر کدام شماره آیه هم اضافه شود
                     if (isGoran)
                     {
                         if (i == 0)
                         {
-                            this.prayerListControl.AddItem("      " + dt.Rows[i][1].ToString());
-                            double d = Global.frmText.AddItem("      " + dt.Rows[i][1].ToString(), i);
-                            Global.frmControlText.AddItem("      " + dt.Rows[i][1].ToString(), i);
-                            Global.frmTranslate.AddItem("      " + dt.Rows[i][2].ToString(), i, d);
-                            TextList.Add("      " + dt.Rows[i][1].ToString());
-                            TranslationList.Add("      " + dt.Rows[i][2].ToString());
+                            this.prayerListControl.AddItem("      " + text);
+                            double d = Global.frmText.AddItem("      " + text, i);
+                            Global.frmControlText.AddItem("      " + text, i);
+                            Global.frmTranslate.AddItem("      " + translation, i, d);
+                            TextList.Add("      " + text);
+                            TranslationList.Add("      " + translation);
                         }
                         else
                         {
-                            this.prayerListControl.AddItem("           " + dt.Rows[i][1].ToString() + " ( " + i.ToString() + " ) ");
-                            double d = Global.frmText.AddItem("           " + dt.Rows[i][1].ToString() + " ( " + i.ToString() + " ) ", i);
-                            Global.frmControlText.AddItem("           " + dt.Rows[i][1].ToString() + " ( " + i.ToString() + " ) ", i);
-                            Global.frmTranslate.AddItem("           " + dt.Rows[i][2].ToString() + " ( " + i.ToString() + " ) ", i, d);
-                            TextList.Add("      " + dt.Rows[i][1].ToString() + " ( " + i.ToString() + " ) ");
-                            TranslationList.Add("      " + dt.Rows[i][2].ToString() + " ( " + i.ToString() + " ) ");
+                            this.prayerListControl.AddItem("           " + text + " ( " + i + " ) ");
+                            double d = Global.frmText.AddItem("           " + text + " ( " + i + " ) ", i);
+                            Global.frmControlText.AddItem("           " + text + " ( " + i + " ) ", i);
+                            Global.frmTranslate.AddItem("           " + translation + " ( " + i + " ) ", i, d);
+                            TextList.Add("      " + text + " ( " + i + " ) ");
+                            TranslationList.Add("      " + translation + " ( " + i + " ) ");
                         }
                     }
                     else
@@ -121,13 +131,13 @@ namespace PrayerControl
                         //اضافه کردن شماره برای اینکه راحت فرازها را پیدا کنند
                         string tmp = "";
                         if (!cmxDataBase.SelectedItem.ToString().Contains("جوشن"))
-                            tmp = (i + 1).ToString() + "- ";
-                        this.prayerListControl.AddItem(tmp + dt.Rows[i][1].ToString());
-                        double d = Global.frmText.AddItem(dt.Rows[i][1].ToString(), i);
-                        Global.frmControlText.AddItem(dt.Rows[i][1].ToString(), i);
-                        Global.frmTranslate.AddItem(dt.Rows[i][2].ToString(), i, d);
-                        TextList.Add("      " + dt.Rows[i][1].ToString());
-                        TranslationList.Add("      " + dt.Rows[i][2].ToString());
+                            tmp = (i + 1) + "- ";
+                        this.prayerListControl.AddItem(tmp + text);
+                        double d = Global.frmText.AddItem(text, i);
+                        Global.frmControlText.AddItem(text, i);
+                        Global.frmTranslate.AddItem(translation, i, d);
+                        TextList.Add("      " + text);
+                        TranslationList.Add("      " + translation);
                     }
                 }
 
@@ -169,17 +179,17 @@ namespace PrayerControl
         {
             try
             {
-                if (DataBaseName == "" || MessageBox.Show("آیا محتوا تغییر کند؟", "تائید", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
+                //if (DataBaseName == "" || MessageBox.Show("آیا محتوا تغییر کند؟", "تائید", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                //{
                     this.prayerListControl.Index = -1;
                     DataBind();
-                    DataBaseName = this.cmxDataBase.SelectedItem.ToString();
+                    this.Text = "نغمات آسمانی - " + this.cmxDataBase.SelectedItem.ToString();
                     rbText_Translate.Checked = true;
-                }
-                else
-                {
-                    this.cmxDataBase.SelectedText = DataBaseName;
-                }
+                //}
+                //else
+                //{
+                //    this.cmxDataBase.SelectedText = DataBaseName;
+                //}
 
                 btn.Focus();
             }
@@ -189,7 +199,7 @@ namespace PrayerControl
 
         }
 
-        string DataBaseName = "";
+        //string DataBaseName = "";
 
         #endregion
 
@@ -372,6 +382,27 @@ namespace PrayerControl
 
         private void frmControl_Load(object sender, EventArgs e)
         {
+            // prepare search trie
+            _bw = new BackgroundWorker();
+            _bw.DoWork += (object s1, DoWorkEventArgs e1) =>
+            {
+                Utils.BuildSearchTrie();
+            };
+            _bw.RunWorkerCompleted += (object s1, RunWorkerCompletedEventArgs e1) =>
+            {
+                if (e1.Error != null)
+                {
+                    btnSearch.Text = e1.Error.ToString();
+                }
+                else
+                {
+                    btnSearch.Text = "جستجو... (Ctrl+F)";
+                    btnSearch.Enabled = true;
+                }
+            };
+            _bw.RunWorkerAsync();
+
+
             //this.WindowState = FormWindowState.Maximized;
             if (Screen.AllScreens.Count() < 2)
                 MessageBox.Show("لطفا قبل از استفاده از نرم افزار ویدئو پروژکتور را به کامپیوتر وصل کرده به مسیر زیر بروید \n\r Control Panel\\Display\\Adjust resulution\\Multiple displays\n\r و آن را روی \n\r Extend these displays\n\r تنظیم کنید.","",MessageBoxButtons.OK,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button1,MessageBoxOptions.RightAlign);
@@ -637,10 +668,16 @@ namespace PrayerControl
             Global.frmControlText.ActiveIndex = prayerListControl.Index;
             Global.frmTranslate.ActiveIndex = prayerListControl.Index;
 
+            VerseUpdated();
+        }
+
+        private void VerseUpdated()
+        {
             try
             {
                 tbTextType.Text = TextList[prayerListControl.Index];
                 tbTextTypeTranslate.Text = TranslationList[prayerListControl.Index];
+                cmxVerse.SelectedIndex = prayerListControl.Index;
             }
             catch { }
         }
@@ -659,6 +696,11 @@ namespace PrayerControl
             if (e.KeyCode == Keys.O && e.Control)
             {
                 btnOption_Click(null, null);
+                return;
+            }
+            if (e.KeyCode == Keys.F && e.Control)
+            {
+                btnSearch_Click(null, null);
                 return;
             }
             switch (e.KeyCode)
@@ -683,7 +725,7 @@ namespace PrayerControl
                     return;
             }
 
-            if (tbTextType.Focused)
+            if (tbTextType.Focused || tbTextTypeTranslate.Focused || cmxDataBase.Focused || cmxVerse.Focused)
                 return;
 
             switch (e.KeyCode)
@@ -1188,6 +1230,18 @@ namespace PrayerControl
                 return;
             Global.frmOption.SetDisplay();
             Global.SetPosition();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (!btnSearch.Enabled)
+                return;
+            Global.frmSearch.ShowDialog();
+        }
+
+        private void cmxVerse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            prayerListControl.Index = cmxVerse.SelectedIndex;
         }
     }
 }

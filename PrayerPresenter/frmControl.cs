@@ -45,6 +45,8 @@ namespace PrayerControl
         List<string> TextList = new List<string>();
         List<string> TranslationList = new List<string>();
 
+        public int GoToVerse = 0;
+
         public void DataBind()
         {
             DataSet ds = new DataSet();
@@ -82,7 +84,6 @@ namespace PrayerControl
 
                 this.SetFonts();
 
-                int temp = this.prayerListControl.Index;
                 this.prayerListControl.ClearItem();
 
                 if (dt.Rows.Count == 0)
@@ -96,11 +97,8 @@ namespace PrayerControl
                 TextList.Clear();
                 TranslationList.Clear();
 
-                cmxVerse.Items.Clear();
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    cmxVerse.Items.Add((i + 1).ToString());
-
                     var text = dt.Rows[i][1].ToString();
                     var translation = dt.Rows[i][2].ToString();
 
@@ -113,8 +111,8 @@ namespace PrayerControl
                             double d = Global.frmText.AddItem("      " + text, i);
                             Global.frmControlText.AddItem("      " + text, i);
                             Global.frmTranslate.AddItem("      " + translation, i, d);
-                            TextList.Add("      " + text);
-                            TranslationList.Add("      " + translation);
+                            TextList.Add(text);
+                            TranslationList.Add(translation);
                         }
                         else
                         {
@@ -122,8 +120,8 @@ namespace PrayerControl
                             double d = Global.frmText.AddItem("           " + text + " ( " + i + " ) ", i);
                             Global.frmControlText.AddItem("           " + text + " ( " + i + " ) ", i);
                             Global.frmTranslate.AddItem("           " + translation + " ( " + i + " ) ", i, d);
-                            TextList.Add("      " + text + " ( " + i + " ) ");
-                            TranslationList.Add("      " + translation + " ( " + i + " ) ");
+                            TextList.Add(text + " ( " + i + " ) ");
+                            TranslationList.Add(translation + " ( " + i + " ) ");
                         }
                     }
                     else
@@ -136,12 +134,12 @@ namespace PrayerControl
                         double d = Global.frmText.AddItem(text, i);
                         Global.frmControlText.AddItem(text, i);
                         Global.frmTranslate.AddItem(translation, i, d);
-                        TextList.Add("      " + text);
-                        TranslationList.Add("      " + translation);
+                        TextList.Add(text);
+                        TranslationList.Add(translation);
                     }
                 }
 
-                this.prayerListControl.Index = 0;
+                //this.prayerListControl.Index = 0;
 
                 Global.frmText.Refresh();
                 Global.frmControlText.Refresh();
@@ -154,14 +152,10 @@ namespace PrayerControl
                 this.SetTextLocation();
                 rbText_CheckedChanged(null, null);
 
-                if (temp != -1)
-                {
-                    this.prayerListControl.Index = Global.frmTranslate.ActiveIndex = Global.frmControlText.ActiveIndex = Global.frmText.ActiveIndex = temp;
-                }
-                else
-                {
-                    this.prayerListControl.Index = Global.frmTranslate.ActiveIndex = Global.frmControlText.ActiveIndex = Global.frmText.ActiveIndex = 0;
-                }
+                if (GoToVerse >= dt.Rows.Count)
+                    GoToVerse = 0;
+                this.prayerListControl.Index = GoToVerse;
+                this.prayerListControl_IndexChange(null, null);
 
                 //this.gbSpeed.Enabled = true;
                 this.gbShow.Enabled = true;
@@ -384,9 +378,14 @@ namespace PrayerControl
         {
             // prepare search trie
             _bw = new BackgroundWorker();
+            _bw.WorkerReportsProgress = true;
             _bw.DoWork += (object s1, DoWorkEventArgs e1) =>
             {
-                Utils.BuildSearchTrie();
+                Utils.BuildSearchTries(_bw);
+            };
+            _bw.ProgressChanged += (object s1, ProgressChangedEventArgs e1) =>
+            {
+                btnSearch.Text = "در حال آماده‌سازی جستجو (" + e1.ProgressPercentage + "%)...";
             };
             _bw.RunWorkerCompleted += (object s1, RunWorkerCompletedEventArgs e1) =>
             {
@@ -398,6 +397,7 @@ namespace PrayerControl
                 {
                     btnSearch.Text = "جستجو... (Ctrl+F)";
                     btnSearch.Enabled = true;
+                    btnGoto.Enabled = true;
                 }
             };
             _bw.RunWorkerAsync();
@@ -416,7 +416,7 @@ namespace PrayerControl
             System.Globalization.CultureInfo language = new System.Globalization.CultureInfo("fa-ir");
             InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(language);
 
-            CleanFolders();
+            //CleanFolders();
         }
 
 
@@ -677,7 +677,6 @@ namespace PrayerControl
             {
                 tbTextType.Text = TextList[prayerListControl.Index];
                 tbTextTypeTranslate.Text = TranslationList[prayerListControl.Index];
-                cmxVerse.SelectedIndex = prayerListControl.Index;
             }
             catch { }
         }
@@ -703,6 +702,11 @@ namespace PrayerControl
                 btnSearch_Click(null, null);
                 return;
             }
+            if (e.KeyCode == Keys.G && e.Control)
+            {
+                btnGoto_Click(null, null);
+                return;
+            }
             switch (e.KeyCode)
             {
                 case Keys.F1:
@@ -725,7 +729,7 @@ namespace PrayerControl
                     return;
             }
 
-            if (tbTextType.Focused || tbTextTypeTranslate.Focused || cmxDataBase.Focused || cmxVerse.Focused)
+            if (tbTextType.Focused || tbTextTypeTranslate.Focused || cmxDataBase.Focused)
                 return;
 
             switch (e.KeyCode)
@@ -1236,12 +1240,21 @@ namespace PrayerControl
         {
             if (!btnSearch.Enabled)
                 return;
+
+            Global.frmSearch.Text = "جستجو";
+            Global.frmSearch.SearchTrie = Global.TextSearchTrie;
             Global.frmSearch.ShowDialog();
         }
 
-        private void cmxVerse_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnGoto_Click(object sender, EventArgs e)
         {
-            prayerListControl.Index = cmxVerse.SelectedIndex;
+            if (!btnGoto.Enabled)
+                return;
+
+            Global.frmSearch.Text = "جهش سریع";
+            Global.frmSearch.SearchTrie = Global.GotoSearchTrie;
+            Global.frmSearch.ShowDialog();
         }
+
     }
 }

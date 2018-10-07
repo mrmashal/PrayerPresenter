@@ -60,8 +60,6 @@
             this.rbDown = new System.Windows.Forms.RadioButton();
             this.rbTop = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cmxVerse = new System.Windows.Forms.ComboBox();
             this.cmxDataBase = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbTextType = new System.Windows.Forms.RichTextBox();
@@ -75,6 +73,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.prayerListControl = new PrayerControl.LIB.PrayerListControl();
             this.browser = new PrayerControl.LIB.Browser();
+            this.btnGoto = new System.Windows.Forms.Button();
             this.gbShow.SuspendLayout();
             this.gbViewType.SuspendLayout();
             this.gbSpeed.SuspendLayout();
@@ -450,45 +449,23 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.cmxVerse);
             this.groupBox2.Controls.Add(this.cmxDataBase);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(405, -2);
+            this.groupBox2.Location = new System.Drawing.Point(484, -2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(275, 48);
+            this.groupBox2.Size = new System.Drawing.Size(196, 48);
             this.groupBox2.TabIndex = 45;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "محتوا";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(84, 20);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 13);
-            this.label6.TabIndex = 38;
-            this.label6.Text = "آیه/فراز:";
-            // 
-            // cmxVerse
-            // 
-            this.cmxVerse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmxVerse.FormattingEnabled = true;
-            this.cmxVerse.Location = new System.Drawing.Point(6, 17);
-            this.cmxVerse.Name = "cmxVerse";
-            this.cmxVerse.Size = new System.Drawing.Size(79, 21);
-            this.cmxVerse.TabIndex = 37;
-            this.cmxVerse.TabStop = false;
-            this.cmxVerse.SelectedIndexChanged += new System.EventHandler(this.cmxVerse_SelectedIndexChanged);
             // 
             // cmxDataBase
             // 
             this.cmxDataBase.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmxDataBase.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmxDataBase.FormattingEnabled = true;
-            this.cmxDataBase.Location = new System.Drawing.Point(137, 17);
+            this.cmxDataBase.Location = new System.Drawing.Point(10, 17);
             this.cmxDataBase.Name = "cmxDataBase";
-            this.cmxDataBase.Size = new System.Drawing.Size(101, 21);
+            this.cmxDataBase.Size = new System.Drawing.Size(145, 21);
             this.cmxDataBase.TabIndex = 29;
             this.cmxDataBase.TabStop = false;
             this.cmxDataBase.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDataBase_SelectedIndexChanged);
@@ -496,7 +473,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(238, 20);
+            this.label3.Location = new System.Drawing.Point(161, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 36;
@@ -590,9 +567,9 @@
             // btnSearch
             // 
             this.btnSearch.Enabled = false;
-            this.btnSearch.Location = new System.Drawing.Point(293, 4);
+            this.btnSearch.Location = new System.Drawing.Point(239, 5);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(109, 41);
+            this.btnSearch.Size = new System.Drawing.Size(133, 41);
             this.btnSearch.TabIndex = 51;
             this.btnSearch.TabStop = false;
             this.btnSearch.Text = "در حال آماده‌سازی جستجو...";
@@ -628,6 +605,18 @@
             this.browser.TabStop = false;
             this.browser.Load += new System.EventHandler(this.browser_Load);
             // 
+            // btnGoto
+            // 
+            this.btnGoto.Enabled = false;
+            this.btnGoto.Location = new System.Drawing.Point(378, 4);
+            this.btnGoto.Name = "btnGoto";
+            this.btnGoto.Size = new System.Drawing.Size(100, 41);
+            this.btnGoto.TabIndex = 52;
+            this.btnGoto.TabStop = false;
+            this.btnGoto.Text = "جهش سریع... (Ctrl+G)";
+            this.btnGoto.UseVisualStyleBackColor = true;
+            this.btnGoto.Click += new System.EventHandler(this.btnGoto_Click);
+            // 
             // frmControl
             // 
             this.AcceptButton = this.btnEnter;
@@ -635,6 +624,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1020, 608);
+            this.Controls.Add(this.btnGoto);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.tbTextTypeTranslate);
             this.Controls.Add(this.groupBox1);
@@ -731,8 +721,7 @@
         public System.Windows.Forms.Label label5;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.RichTextBox tbTextTypeTranslate;
-        public System.Windows.Forms.Label label6;
-        public System.Windows.Forms.ComboBox cmxVerse;
         public System.Windows.Forms.Button btnSearch;
+        public System.Windows.Forms.Button btnGoto;
     }
 }

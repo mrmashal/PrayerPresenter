@@ -27,7 +27,8 @@ namespace PrayerControl
         public static frmOption frmOption = new frmOption();
         public static frmSearch frmSearch = new frmSearch();
 
-        public static AhoCorasick.Trie<Location> SearchTrie = new Trie<Location>();
+        public static AhoCorasick.Trie<Location> TextSearchTrie = new Trie<Location>();
+        public static AhoCorasick.Trie<Location> GotoSearchTrie = new Trie<Location>();
 
         public static void ShowForms()
         {

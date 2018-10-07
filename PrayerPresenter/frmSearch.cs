@@ -14,6 +14,8 @@ namespace PrayerControl
 {
     public partial class frmSearch : Form
     {
+        public AhoCorasick.Trie<Location> SearchTrie { get; set; }
+
         public frmSearch()
         {
             InitializeComponent();
@@ -27,13 +29,13 @@ namespace PrayerControl
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
             lbResults.Items.Clear();
-            if (tbSearch.Text.Length < Global.SearchMinLength)
-            {
+            if (SearchTrie == null)
                 return;
-            }
+            if (tbSearch.Text.Length < Global.SearchMinLength)
+                return;
 
             var standardText = tbSearch.Text.Replace(" ", "").StandardizeForSearch();
-            var results = Global.SearchTrie.Find(standardText).ToArray();
+            var results = SearchTrie.Find(standardText).ToArray();
             lbResults.Items.AddRange(results);
         }
 
@@ -66,7 +68,8 @@ namespace PrayerControl
             if (location == null)
                 return;
 
-            Global.frmControl.cmxDataBase.SelectedIndex = location.MatnId;
+            Global.frmControl.GoToVerse = location.VerseIdx;
+            Global.frmControl.cmxDataBase.SelectedIndex = location.TextIdx;
             Close();
         }
     }

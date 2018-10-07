@@ -117,40 +117,41 @@ namespace AhoCorasick
         }
 
 
-        /// <summary>
-        /// Constructs fail or fall links.
-        /// </summary>
-        public void Build()
-        {
-            // construction is done using breadth-first-search
-            var queue = new Queue<Node<T, TValue>>();
-            queue.Enqueue(root);
+        //mmm
+        ///// <summary>
+        ///// Constructs fail or fall links.
+        ///// </summary>
+        //public void Build()
+        //{
+        //    // construction is done using breadth-first-search
+        //    var queue = new Queue<Node<T, TValue>>();
+        //    queue.Enqueue(root);
 
-            while (queue.Count > 0)
-            {
-                var node = queue.Dequeue();
+        //    while (queue.Count > 0)
+        //    {
+        //        var node = queue.Dequeue();
 
-                // visit children
-                foreach (var child in node)
-                    queue.Enqueue(child);
+        //        // visit children
+        //        foreach (var child in node)
+        //            queue.Enqueue(child);
 
-                // fail link of root is root
-                if (node == root)
-                {
-                    root.Fail = root;
-                    continue;
-                }
+        //        // fail link of root is root
+        //        if (node == root)
+        //        {
+        //            root.Fail = root;
+        //            continue;
+        //        }
 
-                var fail = node.Parent.Fail;
+        //        var fail = node.Parent.Fail;
 
-                while (fail[node.Word] == null && fail != root)
-                    fail = fail.Fail;
+        //        while (fail[node.Word] == null && fail != root)
+        //            fail = fail.Fail;
 
-                node.Fail = fail[node.Word] ?? root;
-                if (node.Fail == node) 
-                    node.Fail = root;
-            }
-        }
+        //        node.Fail = fail[node.Word] ?? root;
+        //        if (node.Fail == node) 
+        //            node.Fail = root;
+        //    }
+        //}
 
         /// <summary>
         /// Finds all added words in a text.
@@ -163,12 +164,17 @@ namespace AhoCorasick
 
             foreach (T c in text)
             {
-                while (node[c] == null && node != root)
-                    node = node.Fail;
-
-                node = node[c] ?? root;
+                //mmm
+                if (node[c] == null)
+                    return new List<TValue>();
+                node = node[c];
 
                 //mmm
+                //while (node[c] == null && node != root)
+                //    node = node.Fail;
+
+                //node = node[c] ?? root;
+
                 //for (var t = node; t != root; t = t.Fail)
                 //{
                 //    foreach (TValue value in t.Values)
@@ -217,22 +223,24 @@ namespace AhoCorasick
                 get { return word; }
             }
 
-            /// <summary>
-            /// Parent node.
-            /// </summary>
-            public Node<TNode, TNodeValue> Parent
-            {
-                get { return parent; }
-            }
+            //mmm
+            ///// <summary>
+            ///// Parent node.
+            ///// </summary>
+            //public Node<TNode, TNodeValue> Parent
+            //{
+            //    get { return parent; }
+            //}
 
-            /// <summary>
-            /// Fail or fall node.
-            /// </summary>
-            public Node<TNode, TNodeValue> Fail
-            {
-                get;
-                set;
-            }
+            //mmm
+            ///// <summary>
+            ///// Fail or fall node.
+            ///// </summary>
+            //public Node<TNode, TNodeValue> Fail
+            //{
+            //    get;
+            //    set;
+            //}
 
             /// <summary>
             /// Children for this node.
